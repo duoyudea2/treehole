@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>树洞 · 只属于你的小树洞</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌳</text></svg>">
+<link rel="stylesheet" href="style.css?v=8">
+</head>
+<body>
+
+  <!-- 背景装饰 -->
+  <div class="bg-decor" aria-hidden="true">
+    <span class="deco d1">🌙</span>
+    <span class="deco d2">☁️</span>
+    <span class="deco d3">✨</span>
+    <span class="deco d4">🌷</span>
+    <span class="deco d5">⭐</span>
+    <span class="deco d6">🎀</span>
+  </div>
+
+  <main class="app">
+
+    <!-- ===== 首页：问候 + 今日小记 + 话题列表 ===== -->
+    <section class="view" id="homeView">
+      <header class="header">
+        <div class="header-left">
+          <div class="avatar">🌳</div>
+          <div>
+            <h1>树洞</h1>
+            <p class="slogan">把心事轻轻放进这里，我在听</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="date" id="todayText"></span>
+          <button class="icon-btn" id="historyBtn" title="情绪小记">🌙</button>
+          <button class="icon-btn" id="settingsBtn" title="设置">⚙️</button>
+        </div>
+      </header>
+
+      <div class="home-scroll">
+        <div class="greeting-card" id="greetingCard"></div>
+        <div id="todayAnalysis"></div>
+        <div class="conv-list" id="convList"></div>
+      </div>
+
+      <button class="new-btn" id="newConvBtn">＋ 开启一个新话题</button>
+    </section>
+
+    <!-- ===== 对话页 ===== -->
+    <section class="view hidden" id="chatView">
+      <header class="header">
+        <button class="icon-btn" id="backBtn" title="返回">←</button>
+        <div class="header-left grow">
+          <div class="avatar small">🌳</div>
+          <div class="min-w0">
+            <h1 class="ellipsis" id="convTitle">话题</h1>
+            <p class="slogan">随时回来，接着聊</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="icon-btn" id="historyBtn2" title="情绪小记">🌙</button>
+          <button class="icon-btn" id="settingsBtn2" title="设置">⚙️</button>
+        </div>
+      </header>
+
+      <section class="chat" id="chat"></section>
+
+      <footer class="composer">
+        <input type="text" id="input" placeholder="跟我说说吧…" maxlength="2000" autocomplete="off">
+        <button id="sendBtn" title="发送">➤</button>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- 情绪小记抽屉 -->
+  <div class="modal-mask hidden" id="historyModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2>🌙 情绪小记</h2>
+        <button class="close-btn" data-close="historyModal">✕</button>
+      </div>
+      <p class="modal-tip">每天 <b id="historyHour">19:00</b> 后，树洞会把这一天所有话题里的事，轻轻梳理成一段小记。也可以现在就要 👇</p>
+      <button class="soft-btn" id="nowBtn">✨ 现在写今日小记</button>
+      <div class="history-list" id="historyList"></div>
+    </div>
+  </div>
+
+  <!-- 设置弹窗 -->
+  <div class="modal-mask hidden" id="settingsModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2>⚙️ 树洞的小秘密</h2>
+        <button class="close-btn" data-close="settingsModal">✕</button>
+      </div>
+      <p class="modal-tip">填上 AI 接口的信息，树洞就有脑子陪你聊啦。改动会<b>自动保存</b>，下次打开不用再填；想更保险，把配置也存进文件夹里的 config.js，浏览器数据被清空都不怕 🔒</p>
+      <label>接口地址
+        <input type="text" id="setBase" placeholder="https://api.deepseek.com">
+      </label>
+      <label>API Key
+        <input type="password" id="setKey" placeholder="sk-…">
+      </label>
+      <label>模型名
+        <input type="text" id="setModel" placeholder="deepseek-chat">
+      </label>
+      <label>每天写小记的时间
+        <select id="setHour"></select>
+      </label>
+      <div class="modal-actions">
+        <button class="primary-btn" id="saveBtn">保存并关闭</button>
+        <button class="soft-btn" id="testBtn">测试连接</button>
+      </div>
+      <span class="autosave-hint hidden" id="autosaveHint">✓ 已自动保存</span>
+      <div class="modal-foot">
+        <p class="hint">还没有 Key？去 <b>platform.deepseek.com</b> 注册就能免费领一个，把地址和 Key 填进来就行。其他 OpenAI 格式的接口（通义千问、Moonshot 等）也都支持。</p>
+        <button class="soft-btn full" id="copyConfigBtn">📋 复制 config.js 配置代码</button>
+        <button class="danger-link" id="clearBtn">清空所有记录</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+
+<script src="config.js?v=7"></script>
+<script src="app.js?v=7"></script>
+</body>
+</html>
